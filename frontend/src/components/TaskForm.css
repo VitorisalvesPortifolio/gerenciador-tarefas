@@ -1,0 +1,96 @@
+/* src/components/TaskForm.css */
+
+.back-button {
+    margin: 15px 0;
+    padding: 8px 16px;
+    background-color: #9b503a;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background-color: #9b503a;
+  }
+  
+.task-page {
+    max-width: 600px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+
+.task-form {   
+    padding: 20px;
+    background-color: #9b503a;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 40px auto; /* Centraliza horizontalmente com espaço no topo/baixo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    /* Garante que os inputs fiquem alinhados à esquerda */
+    gap: 10px;
+    /* Espaçamento entre os campos */
+}
+
+.form-group input {
+    width: 300px;
+    /* Mesma largura para todos os inputs */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.label-descr{
+margin-top: 20px;
+}
+
+.form-input {
+    padding: 8px;
+    margin-top: 5px;
+    width: 50%;
+    border-radius: 4px;
+    border: 2px solid #797373;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+
+/* Estilo para a mensagem de resposta */
+.response-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    color: #4caf50; /* Cor para sucesso ou erro */
+  }
+  
+  /* Botão desabilitado */
+  .submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

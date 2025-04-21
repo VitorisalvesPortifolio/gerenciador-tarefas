@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "strict": true,                   // Habilita o modo estrito para TypeScript
+      "esModuleInterop": true,          // Para compatibilidade com módulos CommonJS e ES
+      "skipLibCheck": true,             // Ignora a verificação de tipos em arquivos de bibliotecas
+      "moduleResolution": "node",       // Usa a resolução de módulos do Node.js
+      "target": "esnext",               // Define o alvo da compilação para as versões mais recentes de JavaScript
+      "module": "esnext",               // Usa módulos ES6
+      "jsx": "react-jsx"                // Para suporte a JSX no React
+    },
+    "include": [
+      "src/**/*",                       // Inclui todos os arquivos no diretório src
+      "vite-env.d.ts"                   // Inclui o arquivo de definições de tipos do Vite
+    ]
+  }
+  

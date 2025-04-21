@@ -1,0 +1,36 @@
+.menu-page {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 20px;
+    background-color: #9b503a;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white;
+  }
+  
+  .menu-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .menu-button {
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .menu-button:hover {
+    background-color: #45a049;
+  }
+  

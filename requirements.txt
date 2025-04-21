@@ -1,0 +1,6 @@
+fastapi==0.110.0              # Framework para criação da API
+uvicorn==0.29.0               # Servidor ASGI para rodar o FastAPI
+sqlmodel==0.0.16              # ORM moderno que une SQLAlchemy + Pydantic
+sqlalchemy==2.0.29            # ORM base (sqlmodel é construído sobre ele)
+alembic==1.13.1               # Migração de banco de dados (controla versões das tabelas)
+python-dotenv==1.0.1          # Para carregar variáveis de ambiente do arquivo .env
