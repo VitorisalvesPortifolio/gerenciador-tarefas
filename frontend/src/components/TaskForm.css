@@ -94,3 +94,104 @@ margin-top: 20px;
     cursor: not-allowed;
   }
   
+
+  /* Lista de tarefas */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Cada item da lista */
+.task-item {
+  background-color: #9b503a; /* Mesmo marrom do formulário */
+  color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+/* Conteúdo da tarefa */
+.task-content {
+  margin-bottom: 10px;
+}
+
+/* Área dos botões */
+.task-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Botões de editar e excluir */
+.edit-button,
+.delete-button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Estilo específico para cada botão */
+.edit-button {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button {
+  background-color: #f44336; /* Vermelho */
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Formulário de edição */
+.edit-form {
+  padding: 20px;
+  background-color: #9b503a;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Checkbox alinhado */
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.checkbox-label {
+  margin-left: 8px;
+}
+
+/* Botão de cancelar */
+.cancel-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #f44336; /* Vermelho */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f;
+}

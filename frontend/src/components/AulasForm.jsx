@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from "../config/api"; // Correção: import default
 import './AulasForm.css';
 
 /**
@@ -24,7 +25,7 @@ function AulasForm() {
     };
 
     try {
-      await axios.post('http://localhost:8001/aulas', aulaData);
+      await axios.post(`${API_BASE_URL}/aulas`, aulaData);  // Usando a variável importada
       setResponseMessage('Aula criada com sucesso!');
       setNome('');
       setDescricao('');
