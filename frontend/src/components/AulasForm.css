@@ -1,98 +1,202 @@
 /* src/components/AulasForm.css */
-body{
-    background-color: #dcecee;
+body {
+  background-color: #dcecee; /* Cor de fundo do body */
 }
+
 .aulas-page {
-    background-color: #dcecee;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  /* Botão de voltar */
-  .back-button {
-    margin: 15px 0;
-    padding: 8px 16px;
-    background-color: #9b503a;
-    color: #000000;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  .back-button:hover {
-    background-color: #a3563f;
-  }
-  
-  /* Formulário de aulas */
-  .aula-form {
-    padding: 20px;
-    background-color: #9b503a;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 40px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Campos do formulário */
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 10px;
-  }
-  
-  .form-group input {
-    width: 300px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  /* Label especial para descrição */
-  .label-descr {
-    margin-top: 20px;
-  }
-  
-  /* Input padrão */
-  .form-input {
-    padding: 8px;
-    margin-top: 5px;
-    width: 50%;
-    border-radius: 4px;
-    border: 2px solid #797373;
-  }
-  
-  /* Botão de envio */
-  .submit-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Mensagem de resposta (sucesso ou erro) */
-  .response-message {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    color: #ffffff;
-  }
-  
-  /* Botão desabilitado */
-  .submit-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
+  background-color: #dcecee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Botão de voltar */
+.back-button {
+  margin: 15px 0;
+  padding: 8px 16px;
+  background-color: #9b503a;
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #a3563f;
+}
+
+/* Formulário de aulas */
+.aula-form {
+  padding: 20px;
+  background-color: #9b503a;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Campos do formulário */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+}
+
+.form-group input {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Label especial para descrição */
+.label-descr {
+  margin-top: 20px;
+}
+
+/* Input padrão */
+.form-input {
+  padding: 8px;
+  margin-top: 5px;
+  width: 50%;
+  border-radius: 4px;
+  border: 2px solid #797373;
+}
+
+/* Botão de envio */
+.submit-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+/* Mensagem de resposta (sucesso ou erro) */
+.response-message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #4CAF50; /* Cor de fundo para sucesso */
+}
+
+/* Botão desabilitado */
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Estilo para a lista de aulas */
+.aulas-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Cada item da lista de aulas */
+.aulas-item {
+  background-color: #9b503a; /* Mesmo marrom do formulário */
+  color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+/* Conteúdo da aula */
+.aulas-content {
+  margin-bottom: 10px;
+}
+
+/* Área dos botões */
+.aulas-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Botões de editar e excluir */
+.edit-button,
+.delete-button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Estilo específico para cada botão */
+.edit-button {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button {
+  background-color: #f44336; /* Vermelho */
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Formulário de edição */
+.edit-form {
+  padding: 20px;
+  background-color: #9b503a;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Checkbox alinhado */
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.checkbox-label {
+  margin-left: 8px;
+}
+
+/* Botão de cancelar */
+.cancel-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #f44336; /* Vermelho */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f;
+}
