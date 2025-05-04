@@ -8,6 +8,7 @@ class AulaBase(BaseModel):
     nome: str
     descricao: Optional[str] = None
     data_entrega: str
+    done: Optional[bool] = None
 
 class AulaCreate(AulaBase):
     pass

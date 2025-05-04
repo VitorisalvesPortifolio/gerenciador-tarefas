@@ -9,3 +9,4 @@ class Aula(SQLModel, table=True):
     nome: str
     descricao: Optional[str] = None
     data_entrega: str
+    done: bool = False

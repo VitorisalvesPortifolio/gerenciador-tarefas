@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import TaskForm from "../components/TaskForm";
 import BackToHomeButton from '../components/BackToHomeButton';
 import '../components/TaskForm.css';
-import API_BASE_URL from "../config/api"; // Certifique-se de que está usando a variável de ambiente
+import API_BASE_URL from "../config/api";
 
 const TaskPage = () => {
   const [tasks, setTasks] = useState([]);
@@ -11,48 +11,8 @@ const TaskPage = () => {
   const [editedDescription, setEditedDescription] = useState('');
   const [editedDone, setEditedDone] = useState(false);
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-
-    if (!taskToEdit) return;
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/tasks/${taskToEdit.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: editedTitle,
-          description: editedDescription,
-          done: editedDone,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao atualizar tarefa");
-      }
-
-      const updatedTask = await response.json();
-
-      // Atualizar a lista de tarefas localmente
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === updatedTask.id ? updatedTask : task
-        )
-      );
-
-      // Limpar os campos e fechar o modo de edição
-      setTaskToEdit(null);
-      setEditedTitle("");
-      setEditedDescription("");
-      setEditedDone(false);
-
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao atualizar a tarefa");
-    }
-  };
+  // Referência para o formulário de edição
+  const editFormRef = useRef(null);
 
   useEffect(() => {
     fetchTasks();
@@ -79,6 +39,48 @@ const TaskPage = () => {
       .catch((error) => console.error("Erro ao excluir tarefa:", error));
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    if (!taskToEdit) return;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/tasks/${taskToEdit.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: editedTitle,
+          description: editedDescription,
+          done: editedDone,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar tarefa");
+      }
+
+      const updatedTask = await response.json();
+
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === updatedTask.id ? updatedTask : task
+        )
+      );
+
+      // Limpa o estado do formulário de edição
+      setTaskToEdit(null);
+      setEditedTitle("");
+      setEditedDescription("");
+      setEditedDone(false);
+
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao atualizar a tarefa");
+    }
+  };
+
   return (
     <div className="task-page">
       <BackToHomeButton />
@@ -94,7 +96,10 @@ const TaskPage = () => {
           {tasks.map((task) => (
             <li key={task.id} className="task-item">
               <div className="task-content">
-                <strong>{task.title}</strong> — {task.description || "Sem descrição"} — {task.done ? "✅ Feito" : "🕒 Pendente"}
+                <strong>{task.title}</strong> — {task.description || "Sem descrição"} — 
+                <span className={`task-status ${task.done ? "done" : "pending"}`}>
+                  {task.done ? "✅ Concluída" : "🕒 Pendente"}
+                </span>
               </div>
               <div className="task-buttons">
                 <button
@@ -104,6 +109,11 @@ const TaskPage = () => {
                     setEditedTitle(task.title);
                     setEditedDescription(task.description || '');
                     setEditedDone(task.done);
+
+                    // Scroll suave para o formulário de edição
+                    setTimeout(() => {
+                      editFormRef.current?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
                   }}
                 >
                   Editar
@@ -121,7 +131,7 @@ const TaskPage = () => {
       )}
 
       {taskToEdit && (
-        <form onSubmit={handleUpdate} className="edit-form">
+        <form ref={editFormRef} onSubmit={handleUpdate} className="edit-form">
           <h3>Editar Tarefa</h3>
 
           <div className="form-group">

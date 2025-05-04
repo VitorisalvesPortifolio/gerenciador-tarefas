@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import AulasForm from '../components/AulasForm';
-import '../components/AulasForm.css';
-import BackToHomeButton from '../components/BackToHomeButton';
-import API_BASE_URL from '../config/api';
+import React, { useEffect, useState, useRef } from "react";
+import AulasForm from "../components/AulasForm";
+import BackToHomeButton from "../components/BackToHomeButton";
+import "../components/AulasForm.css";
+import API_BASE_URL from "../config/api"; // Certifique-se de que está usando a variável de ambiente
 
-function AulasPage() {
+const AulasPage = () => {
   const [aulas, setAulas] = useState([]);
   const [aulaToEdit, setAulaToEdit] = useState(null);
-  const [editedTitle, setEditedTitle] = useState('');
-  const [editedDescription, setEditedDescription] = useState('');
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedDescription, setEditedDescription] = useState("");
   const [editedDone, setEditedDone] = useState(false);
+  const [editedDate, setEditedDate] = useState("");
+
+  // Referência para o formulário de edição
+  const editFormRef = useRef(null);
 
   useEffect(() => {
     fetchAulas();
@@ -24,7 +28,7 @@ function AulasPage() {
 
   const deleteAula = (aulaId) => {
     fetch(`${API_BASE_URL}/aulas/${aulaId}`, {
-      method: 'DELETE',
+      method: "DELETE",
     })
       .then((res) => {
         if (res.ok) {
@@ -38,17 +42,19 @@ function AulasPage() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
     if (!aulaToEdit) return;
 
     try {
       const response = await fetch(`${API_BASE_URL}/aulas/${aulaToEdit.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          title: editedTitle,
-          description: editedDescription,
+          nome: editedTitle,
+          descricao: editedDescription,
+          data_entrega: editedDate,
           done: editedDone,
         }),
       });
@@ -59,13 +65,16 @@ function AulasPage() {
 
       const updatedAula = await response.json();
 
-      setAulas((prev) =>
-        prev.map((aula) => (aula.id === updatedAula.id ? updatedAula : aula))
+      setAulas((prevAulas) =>
+        prevAulas.map((aula) =>
+          aula.id === updatedAula.id ? updatedAula : aula
+        )
       );
 
+      // Limpa o estado do formulário de edição
       setAulaToEdit(null);
-      setEditedTitle('');
-      setEditedDescription('');
+      setEditedTitle("");
+      setEditedDescription("");
       setEditedDone(false);
     } catch (error) {
       console.error(error);
@@ -76,10 +85,9 @@ function AulasPage() {
   return (
     <div className="aulas-page">
       <BackToHomeButton />
-      <h1 className="text-3xl font-bold mb-6">Aulas</h1>
-  
+
       <AulasForm onAulaCreated={(newAula) => setAulas([...aulas, newAula])} />
-  
+
       <h3 className="text-xl font-semibold mt-6 mb-2">Lista de Aulas</h3>
       {aulas.length === 0 ? (
         <p>Nenhuma aula cadastrada.</p>
@@ -88,17 +96,37 @@ function AulasPage() {
           {aulas.map((aula) => (
             <li key={aula.id} className="aulas-item">
               <div className="aulas-content">
-                {/* Corrigido para exibir 'nome' e 'descricao' */}
-                <strong>{aula.nome}</strong> — {aula.descricao || 'Sem descrição'} — {aula.data_entrega}
+                <strong>{aula.nome}</strong> —{" "}
+                {aula.descricao || "Sem descrição"} —{" "}
+                {aula.data_entrega && (
+                  <span>
+                    📅 {new Date(aula.data_entrega).toLocaleDateString()}
+                  </span>
+                )}{" "}
+                —
+                <span
+                  className={`aula-status ${aula.done ? "done" : "pending"}`}
+                >
+                  {aula.done ? "✅ Concluída" : "🕒 Pendente"}
+                </span>
               </div>
               <div className="aulas-buttons">
                 <button
                   className="edit-button"
                   onClick={() => {
                     setAulaToEdit(aula);
-                    setEditedTitle(aula.nome);  // Corrigido para 'nome'
-                    setEditedDescription(aula.descricao || '');  // Corrigido para 'descricao'
-                    setEditedDone(aula.done);  // Ajuste se necessário
+                    setEditedTitle(aula.nome);
+                    setEditedDescription(aula.descricao || "");
+                    setEditedDone(aula.done);
+                    setEditedDate(aula.data_entrega); // já está sendo configurado corretamente
+                    setEditedDone(aula.done !== undefined ? aula.done : false);
+
+                    // Scroll suave para o formulário de edição
+                    setTimeout(() => {
+                      editFormRef.current?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }, 100);
                   }}
                 >
                   Editar
@@ -114,11 +142,11 @@ function AulasPage() {
           ))}
         </ul>
       )}
-  
+
       {aulaToEdit && (
-        <form onSubmit={handleUpdate} className="edit-form">
+        <form ref={editFormRef} onSubmit={handleUpdate} className="edit-form">
           <h3>Editar Aula</h3>
-  
+
           <div className="form-group">
             <label>Título:</label>
             <input
@@ -129,7 +157,7 @@ function AulasPage() {
               required
             />
           </div>
-  
+
           <div className="form-group">
             <label>Descrição:</label>
             <input
@@ -139,26 +167,43 @@ function AulasPage() {
               onChange={(e) => setEditedDescription(e.target.value)}
             />
           </div>
-  
+
+          <div className="form-group">
+            <label>Data de Entrega:</label>
+            <input
+              className="form-input"
+              type="date"
+              value={editedDate}
+              onChange={(e) => setEditedDate(e.target.value)}
+            />
+          </div>
+
           <div className="form-group checkbox-group">
             <label>Status:</label>
             <input
               type="checkbox"
-              checked={editedDone}
+              checked={editedDone || false}
               onChange={(e) => setEditedDone(e.target.checked)}
             />
-            <span className="checkbox-label">{editedDone ? 'Realizada' : 'Pendente'}</span>
+            <span className="checkbox-label">
+              {editedDone ? "Concluída" : "Pendente"}
+            </span>
           </div>
-  
-          <button className="submit-button" type="submit">Salvar Alterações</button>
-          <button className="cancel-button" type="button" onClick={() => setAulaToEdit(null)}>
+
+          <button className="submit-button" type="submit">
+            Salvar Alterações
+          </button>
+          <button
+            className="cancel-button"
+            type="button"
+            onClick={() => setAulaToEdit(null)}
+          >
             Cancelar
           </button>
         </form>
       )}
     </div>
   );
-  
-}
+};
 
 export default AulasPage;
